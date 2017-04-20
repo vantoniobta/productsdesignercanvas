@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+       <Fabric_Canvas>
+           <active>true</active>
+           <codePool>local</codePool>
+      </Fabric_Canvas>
+    </modules>
+</config>
