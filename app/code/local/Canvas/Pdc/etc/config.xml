@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Canvas_Pdc>
+            <version>0.1.0</version>
+        </Canvas_Pdc>
+    </modules>
+
+     <frontend>
+        <routers>
+            <pdc>
+                <use>standard</use>
+                <args>
+                    <module>Canvas_Pdc</module>
+                    <frontName>canvas</frontName>
+                </args>
+            </pdc>
+        </routers>
+
+<!-- 
+    <layout>
+          <updates>
+            <pdc>
+              <file>local.xml</file>
+            </pdc>
+          </updates>
+    </layout>  -->
+
+    </frontend>
+
+<global>
+        <!--models-->
+      <models>
+          <pdc>
+              <class>Canvas_Pdc_Model</class>
+              <resourceModel>pdc_mysql4</resourceModel>
+          </pdc>
+
+          <!-- add tabla de pdc user-->
+          <pdc_mysql4>
+               <class>Canvas_Pdc_Model_Mysql4</class>
+               <entities>
+                   <pdc>
+                       <table>pdc_user</table><!--nombre_del_tabla -->
+                   </pdc>
+               </entities>  
+          </pdc_mysql4>
+      </models> 
+
+  <resource>  
+        <pdc_setup>
+           <setup>
+             <module>Canvas_Pdc</module>
+           </setup>
+           <connection>
+             <use>core_setup</use>
+           </connection>  
+        </pdc_setup>
+
+        <pdc_read>
+          <connection>
+            <use>core_read</use>
+          </connection>
+        </pdc_read>
+
+          <pdc_write>
+              <connection>
+                  <use>core_write</use>
+              </connection>
+          </pdc_write>
+  </resource>
+
+     <!--blocks-->
+      <blocks>
+          <pdc>
+              <class>Canvas_Pdc_Block</class>
+          </pdc>
+      </blocks>
+     <!--helper-->
+      <helpers>
+         <pdc>
+             <class>Canvas_Pdc_Helper</class>
+         </pdc>      
+      </helpers>
+
+      <!--observer para eventos-->
+      <events>
+        <checkout_cart_product_add_after>
+          <observers>
+            <Canvas_Pdc_Model_Observer>
+              <!--<type>model</type> -->
+              <type>singleton</type>
+              <class>Canvas_Pdc_Model_Observer</class>
+              <method>addPostData</method>
+            </Canvas_Pdc_Model_Observer>
+          </observers>
+        </checkout_cart_product_add_after>
+
+        <sales_convert_quote_item_to_order_item>
+          <observers>
+            <Canvas_Pdc_Model_Observer>
+              <type>singleton</type>
+              <class>Canvas_Pdc_Model_Observer</class>
+              <method>salesPostData</method>
+            </Canvas_Pdc_Model_Observer>
+          </observers>
+        </sales_convert_quote_item_to_order_item>
+
+
+      </events>
+
+</global>
+</config>
